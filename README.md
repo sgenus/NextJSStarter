@@ -1,1 +1,1 @@
-# NextJSStarter Test
+# NextJSStarter Tests
