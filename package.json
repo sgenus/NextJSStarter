@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "dev:no-turbo": "next dev",
-    "build": "next build",
+    "dev": "if exist .env.local (rename .env.local .env.local.bak) && cross-env NODE_ENV=development next dev --turbopack",
+    "dev:no-turbo": "if exist .env.local (rename .env.local .env.local.bak) && cross-env NODE_ENV=development next dev",
+    "build": "(if exist .env.local.bak (rename .env.local.bak .env.local)) && cross-env NODE_ENV=production next build && powershell -Command \"(Get-Item .\\web.config).LastWriteTime = Get-Date\"",
+    "build:test": "(if exist .env.local.bak (rename .env.local.bak .env.local)) && cross-env NODE_ENV=test next build && powershell -Command \"(Get-Item .\\web.config).LastWriteTime = Get-Date\"",
+    "build:prod": "(if exist .env.local.bak (rename .env.local.bak .env.local)) && cross-env NODE_ENV=production next build && powershell -Command \"(Get-Item .\\web.config).LastWriteTime = Get-Date\"",
     "start": "next start",
     "lint": "next lint"
   },
@@ -15,6 +17,7 @@
     "@mui/icons-material": "^6.3.1",
     "@mui/material": "^6.3.1",
     "@mui/x-data-grid": "^7.23.6",
+    "mime": "^4.0.6",
     "next": "15.1.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -23,6 +26,7 @@
     "@eslint/eslintrc": "^3",
     "@types/node": "22.10.7",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
     "eslint": "^9",
     "eslint-config-next": "15.1.4",
     "postcss": "^8.4.49",
