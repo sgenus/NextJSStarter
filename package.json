@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "if exist .env.local (rename .env.local .env.local.bak) && cross-env NODE_ENV=development next dev --turbopack",
-    "dev:no-turbo": "if exist .env.local (rename .env.local .env.local.bak) && cross-env NODE_ENV=development next dev",
+    "dev": "(if exist .env.local (rename .env.local .env.local.bak)) && cross-env NODE_ENV=development next dev --turbopack",
+    "dev:no-turbo": "(if exist .env.local (rename .env.local .env.local.bak)) && cross-env NODE_ENV=development next dev",
     "build": "(if exist .env.local.bak (rename .env.local.bak .env.local)) && cross-env NODE_ENV=production next build && powershell -Command \"(Get-Item .\\web.config).LastWriteTime = Get-Date\"",
     "build:test": "(if exist .env.local.bak (rename .env.local.bak .env.local)) && cross-env NODE_ENV=test next build && powershell -Command \"(Get-Item .\\web.config).LastWriteTime = Get-Date\"",
     "build:prod": "(if exist .env.local.bak (rename .env.local.bak .env.local)) && cross-env NODE_ENV=production next build && powershell -Command \"(Get-Item .\\web.config).LastWriteTime = Get-Date\"",
